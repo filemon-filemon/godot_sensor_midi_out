@@ -1,0 +1,38 @@
+Okay so this is mostly a little save point for myself that could help some other peoples, so I make a public repo about it :))
+This repo is all about trying to output some MIDI signal from godot to a LED, or to another activator :)
+This repo features a little "tutorial" I made reytracing my steps toward making a LED lightup from godot using MIDI signal
+It also features the actual godot project I had to make this work. As I said, it's a little save point for myself, so nothing is 'clean'. It works tho :D
+
+With this little introduction out of the way, here is the post originally posted to this conversation : https://forum.godotengine.org/t/send-midi-output-to-a-device/21795 where I tell about how I made the code work
+I copy paste the text I've written in this post here:
+
+Hello there !! I found this archive while searching how to do it !!
+After a few hours, I have found a solution, but nothing as well referenced as this convo :°)
+So, there is this person, NullMember, who made a plugin:
+https://github.com/NullMember/godot-rtmidi
+
+Contribute to NullMember/godot-rtmidi development by creating an account on GitHub.
+
+It’s a life saver !! Basically I tried, personally, to light a led up with midi signal, using a godot project;
+So, as said in NullMembers doc, using their plugin you can “enable” it by putting a :
+func _ready():
+midi_out.open_port(x)
+x being the port you want to send info to ;
+Personally, I had no idea on which port my little led was plugged (via a pcb that would do some handywork to transform the signal to analogic)
+So I went on and downloaded the alsa-utils package (I’m on linux) and I was then able to use the amidi cli tool
+The “amidi -l” command gave me the plugged devices
+I saw hw:1,0,0 and hw:1,0,1
+After that I used the command amidi -p hw:1,0,1 -S “B0 3F 127F” to turn on the led then the same command but ending with 00 to turn it off
+It didn’t work. I had to go read the doc about the cards I was using tho, and realized that I needed to issue two commands, one with at the end “B0 1F 127F” then one with “B0 3F 127F”.
+But that’s just my hardware, yours might work with just one command :°)
+After that, I could return to godot and set x as 2, as it is the second midi interface scanned in the list that amidi -l outputted
+Then, I used a function from NullMembers plugin (again), which is
+midi_out.send_message([a ,b ,c ])
+I set a = 0xB0
+b = 0x3F
+c = 0x127F
+Basically they’re the same values as the sent values at the end of the amidi -p command
+So normally putting the same ones there should be okay
+Again because of my hardware interface I had to send 2 commands via godot but hey, it works :))
+So yeah the plugin’s great and amidi was a great help in all that
+So for the others that might come across this page, I hope the story of how my afternoon went helps you out :°D
