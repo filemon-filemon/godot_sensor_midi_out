@@ -2,10 +2,10 @@ Okay so this is mostly a little save point for myself that could help some other
 This repo is all about trying to output some MIDI signal from godot to a LED, or to another activator :)
 This repo features a little "tutorial" I made reytracing my steps toward making a LED lightup from godot using MIDI signal
 It also features the actual godot project I had to make this work. As I said, it's a little save point for myself, so nothing is 'clean'. It works tho :D
+Also everything here is under the unlicensed license, which means I'm not responsible for anything and you can use all this as you want
 
 With this little introduction out of the way, here is the post originally posted to this conversation : https://forum.godotengine.org/t/send-midi-output-to-a-device/21795 where I tell about how I made the code work
 I copy paste the text I've written in this post here:
-
 Hello there !! I found this archive while searching how to do it !!
 After a few hours, I have found a solution, but nothing as well referenced as this convo :°)
 So, there is this person, NullMember, who made a plugin:
